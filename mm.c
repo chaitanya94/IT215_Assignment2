@@ -86,8 +86,7 @@ static void printblock(void *bp);
  *   Initialize the memory manager.  Returns 0 if the memory manager was
  *   successfully initialized and -1 otherwise.
  */
-int
-mm_init(void) 
+int mm_init(void) 
 {
 
 	/* Create the initial empty heap. */
@@ -114,8 +113,7 @@ mm_init(void)
  *   zero.  Returns the address of this block if the allocation was successful
  *   and NULL otherwise.
  */
-void *
-mm_malloc(size_t size) 
+void * mm_malloc(size_t size) 
 {
 	size_t asize;      /* Adjusted block size */
 	size_t extendsize; /* Amount to extend heap if no fit */
@@ -152,8 +150,7 @@ mm_malloc(size_t size)
  * Effects:
  *   Free a block.
  */
-void
-mm_free(void *bp)
+void mm_free(void *bp)
 {
 	size_t size;
 
@@ -181,8 +178,7 @@ mm_free(void *bp)
  *   "ptr" are copied to that new block.  Returns the address of this new
  *   block if the allocation was successful and NULL otherwise.
  */
-void *
-mm_realloc(void *ptr, size_t size)
+void * mm_realloc(void *ptr, size_t size)
 {
 	size_t oldsize;
 	void *newptr;
@@ -227,8 +223,7 @@ mm_realloc(void *ptr, size_t size)
  *   Perform boundary tag coalescing.  Returns the address of the coalesced
  *   block.
  */
-static void *
-coalesce(void *bp) 
+static void * coalesce(void *bp) 
 {
 	bool prev_alloc = GET_ALLOC(FTRP(PREV_BLKP(bp)));
 	bool next_alloc = GET_ALLOC(HDRP(NEXT_BLKP(bp)));
@@ -262,8 +257,7 @@ coalesce(void *bp)
  * Effects:
  *   Extend the heap with a free block and return that block's address.
  */
-static void *
-extend_heap(size_t words) 
+static void * extend_heap(size_t words) 
 {
 	void *bp;
 	size_t size;
@@ -290,8 +284,7 @@ extend_heap(size_t words)
  *   Find a fit for a block with "asize" bytes.  Returns that block's address
  *   or NULL if no suitable block was found. 
  */
-static void *
-find_fit(size_t asize)
+static void * find_fit(size_t asize)
 {
 	void *bp;
 
@@ -313,8 +306,7 @@ find_fit(size_t asize)
  *   split that block if the remainder would be at least the minimum block
  *   size. 
  */
-static void
-place(void *bp, size_t asize)
+static void place(void *bp, size_t asize)
 {
 	size_t csize = GET_SIZE(HDRP(bp));   
 
@@ -341,8 +333,7 @@ place(void *bp, size_t asize)
  * Effects:
  *   Perform a minimal check on the block "bp".
  */
-static void
-checkblock(void *bp) 
+static void checkblock(void *bp) 
 {
 
 	if ((uintptr_t)bp % DSIZE)
@@ -358,8 +349,7 @@ checkblock(void *bp)
  * Effects:
  *   Perform a minimal check of the heap for consistency. 
  */
-void
-checkheap(bool verbose) 
+void checkheap(bool verbose) 
 {
 	void *bp;
 
@@ -390,8 +380,7 @@ checkheap(bool verbose)
  * Effects:
  *   Print the block "bp".
  */
-static void
-printblock(void *bp) 
+static void printblock(void *bp) 
 {
 	bool halloc, falloc;
 	size_t hsize, fsize;
